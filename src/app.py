@@ -59,6 +59,20 @@ def filter_task(id):
 
     return task_schema.jsonify(task)
 
+@app.route('/tasks/<id>', methods = ['PUT'])
+def update_task(id):
+    task = Task.query.get(id)
+
+    title = request.json['title']
+    description = request.json['description']
+
+    task.title = title
+    task.description = description
+
+    db.session.commit()
+
+    return task_schema.jsonify(task)
+
 # Run Server
 if __name__ == "__main__":
     app.run(host = '0.0.0.0', port = 4000, debug = True)
