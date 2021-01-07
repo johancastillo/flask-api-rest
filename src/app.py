@@ -31,12 +31,16 @@ class TaskSchema(ma.Schema):
         fields = ('id', 'title', 'description')
 
 task_schema = TaskSchema()
-task_schema = TaskSchema(many = True)
+tasks_schema = TaskSchema(many = True)
 
 # Routes
 @app.route('/tasks', methods = ['POST'])
 def create_task():
-    print(request.json)
+    title = request.json['title']
+    description = request.json['description']
+
+    print(title)
+    print(description)
     return 'Received'
 
 # Run Server
