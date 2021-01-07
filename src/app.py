@@ -34,6 +34,11 @@ task_schema = TaskSchema()
 tasks_schema = TaskSchema(many = True)
 
 # Routes
+@app.route('/', methods = ['GET'])
+def index():
+    return jsonify({ 'message': 'Welcome to my API REST' })
+
+
 @app.route('/tasks', methods = ['POST'])
 def create_task():
     title = request.json['title']
