@@ -39,9 +39,11 @@ def create_task():
     title = request.json['title']
     description = request.json['description']
 
-    print(title)
-    print(description)
-    return 'Received'
+    new_task = Task(title, description)
+    db.session.add(new_task)
+    db.session.commit()
+
+    return task_schema.jsonify(new_task)
 
 # Run Server
 if __name__ == "__main__":
