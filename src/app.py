@@ -53,6 +53,12 @@ def get_task():
     # String to JSON
     return jsonify(results)
 
+@app.route('/tasks/<id>', methods = ['GET'])
+def filter_task(id):
+    task = Task.query.get(id)
+
+    return task_schema.jsonify(task)
+
 # Run Server
 if __name__ == "__main__":
     app.run(host = '0.0.0.0', port = 4000, debug = True)
