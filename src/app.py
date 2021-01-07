@@ -1,5 +1,5 @@
 # Modules
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
@@ -44,6 +44,14 @@ def create_task():
     db.session.commit()
 
     return task_schema.jsonify(new_task)
+
+@app.route('/tasks', methods = ['GET'])
+def get_task():
+    all_tasks = Task.query.all()
+    results = tasks_schema.dump(all_tasks)
+
+    # String to JSON
+    return jsonify(results)
 
 # Run Server
 if __name__ == "__main__":
